@@ -1,7 +1,7 @@
 import numpy as np
 from math import factorial
 
-#construi la tabla para los datos#
+#construir la tabla para los datos#
 def build_table(y_data):
     n = len(y_data)
     table = np.zeros((n, n))
@@ -40,6 +40,7 @@ def newton_adelante(x_data, y_data, x):
     print()
     print('  ' + '-' * 68)
 
+    #ni idea me lo copie de claude#
     for i in range(n):
         print(f'  {i:<4} {x_data[i]:<10.4f} {table[i][0]:<16.4f}', end='')
         for j in range(1, n):
@@ -50,3 +51,13 @@ def newton_adelante(x_data, y_data, x):
             else:
                 print(f'{'':<18}', end='')
         print()
+    
+    #calculo s#
+    s = (x - x_data[0]) / h
+    print(f'\n h = {h}')
+    print(f' s  = (x - x0) / h = ({x} - {x_data[0]}) / {h} = {s:.4f}')
+    for k in range(1, n - 1):
+        print(f' s{k + 1} = s - {k} = {round(s - k, 4):.4f}')
+
+        #datos de la primera fila#
+        formula_letters = [label_matrix[0][j] for j in range(1, n)]
