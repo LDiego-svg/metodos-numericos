@@ -56,7 +56,7 @@ def newton_atras(x_data, y_data, x, verbose=True):
         for k in range(1, n - 1):
             print(f' s{k + 1} = s + {k} = {round(s + k, 4):.4f}')
         
-    formula_letters = [label_matrix[n - i - j][j] for j in range(1, n)]
+    formula_letters = [label_matrix[n - 1 - j][j] for j in range(1, n)]
 
     if verbose:
         print(f'\nFORMULA:')
@@ -66,30 +66,74 @@ def newton_atras(x_data, y_data, x, verbose=True):
             terms_letters.append(f'{formula_letters[j - 1]}·{s_part}/{factorial(j)}')
         print(f'  g(x) = {" + ".join(terms_letters)}')
 
-        result = table[n - 1][0]
-        terms_values = [f'{table[n - 1][0]:.4f}']
+    result = table[n - 1][0]
+    terms_values = [f'{table[n - 1][0]:.4f}']
 
-        for j in range(1, n):
-            numerator = 1.0
-            s_nums = []
-            for k in range(j):
-                numerator += (s + k)
-                s_nums.append(f'{s + k:.4f}')
-            denom = factorial(j)
-            diff_val = table[n - 1 - j][j]
-            contribution = (numerator / denom) * diff_val
-            result += contribution
+    for j in range(1, n):
+        numerator = 1.0
+        s_nums = []
+        for k in range(j):
+            numerator *= (s + k)
+            s_nums.append(f'{s + k:.4f}')
+        denom = factorial(j)
+        diff_val = table[n - 1 - j][j]
+        contribution = (numerator / denom) * diff_val
+        result += contribution
 
-            if verbose:
-                s_part_num = '·'.join(s_nums)
-                terms_values.append(f'{diff_val:.4f}·{s_part_num}/{denom} = {contribution:.4f}')
- 
         if verbose:
-            print(f'\n g({x}) = {terms_values[0]}')
-            for t in terms_values[1:]:
-                print(f'         + {t}')
-            print(f"\n  {'─' * 45}")
-        print(f"  g({x}) = {result:.4f}")
-        print('=' * 70)
+            s_part_num = '·'.join(s_nums)
+            terms_values.append(f'{diff_val:.4f}·{s_part_num}/{denom} = {contribution:.4f}')
  
-        return result
+    if verbose:
+        print(f'\n g({x}) = {terms_values[0]}')
+        for t in terms_values[1:]:
+            print(f'         + {t}')
+        print(f"\n  {'─' * 45}")
+    print(f"  g({x}) = {result:.4f}")
+    print('=' * 70)
+ 
+    return result
+
+def get_data():
+    while True:
+        try:
+            n = int(input('\nCuantos puntos tiene la tabla? '))
+            if n >= 2:
+                break
+            print(' Mínimo debe tener 2 puntos')
+        except ValueError:
+            print(' Ingresa un número válido')
+    
+    x_data, y_data = [], []
+    print(f'\nIngresa los {n} datos pares:')
+    for i in range(n):
+        while True:
+            try:
+                x = float(input(f'  x[{i}] = '))
+                y = float(input(f'  y[{i}] = '))
+                x_data.append(x)
+                y_data.append(y)
+                break
+            except ValueError:
+                print(' Valor inválido, intenta de nuevo')
+    while True:
+        try:
+            x_target = float(input('\nInterpola para x = '))
+            break
+        except ValueError:
+            print(' Valor invalido')
+    return np.array(x_data), np.array(y_data), x_target
+
+def main():
+    print('=' * 70)
+    print('  INTERPOLACION - NEWTON HACIA ATRAS')
+    print('=' * 70)
+    while True:
+        x_data, y_data, x_target = get_data()
+        newton_atras(x_data, y_data, x_target)
+        again = input('\nQuiere resolver otra tabla? (y/n): ').strip().lower()
+        if again != 'y':
+            print('\nListo')
+            break
+
+main()

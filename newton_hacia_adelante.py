@@ -30,7 +30,6 @@ def newton_adelante(x_data, y_data, x, verbose=True):
             label_matrix[i][j] = letters[letters_idx]
             letters_idx += 1
     
-    #imprimi la tabla ni perra idea como se ve#
     if verbose:
         print('\n' + '=' * 70)
         print('Tabla de diferencias')
@@ -41,7 +40,6 @@ def newton_adelante(x_data, y_data, x, verbose=True):
         print()
         print('  ' + '-' * 68)
 
-        #ni idea me lo copie de claude#
         for i in range(n):
             print(f'  {i:<4} {x_data[i]:<10.4f} {table[i][0]:<16.4f}', end='')
             for j in range(1, n):
