@@ -1,5 +1,3 @@
-from math import factorial
-
 import numpy as np
 
 
@@ -43,3 +41,84 @@ def diferencias_divididas(x_data, y_data, x, verbose=True):
                     letter = label_matrix[i][j]
                     print(f"{val:.4f} --> {letter:<10}", end="")
             print()
+    formula_letters = [label_matrix[0][j] for j in range(1, n)]
+    if verbose:
+        print("\nFORMULA:")
+        terms_letters = ["y0"]
+        for j in range(1, n):
+            x_part = "·".join([f"(x-x{k})" for k in range(j)])
+            terms_letters.append(f"{formula_letters[j - 1]}·{x_part}")
+        print(f"  g(x) = {' + '.join(terms_letters)}")
+
+    result = table[0][0]
+    terms_values = [f"{table[0][0]:.4f}"]
+
+    for j in range(1, n):
+        numerator = 1.0
+        x_nums = []
+        for k in range(j):
+            numerator *= x - x_data[k]
+            x_nums.append(f"{x - x_data[k]:.4f}")
+        diff_val = table[0][j]
+        contribution = diff_val * numerator
+        result += contribution
+
+        if verbose:
+            terms_values.append(f"{diff_val:.4f}·{'·'.join(x_nums)} = {contribution:.4f}")
+
+    if verbose:
+        print(f"\n g({x}) = {terms_values[0]}")
+        for t in terms_values[1:]:
+            print(f"         + {t}")
+        print(f"\n  {'─' * 45}")
+    print(f"  g({x}) = {result:.4f}")
+    print("=" * 70)
+    return result
+
+
+def get_data():
+    while True:
+        try:
+            n = int(input("\nCuántos puntos tiene la tabla? "))
+            if n >= 2:
+                break
+            print(" Mínimo debe tener 2 puntos")
+        except ValueError:
+            print("Ingresa un número válido")
+    x_data, y_data = [], []
+    print(f"\nIngresa los {n} datos pares:")
+    for i in range(n):
+        while True:
+            try:
+                x = float(input(f"  x[{i}] = "))
+                y = float(input(f"  y[{i}] = "))
+                x_data.append(x)
+                y_data.append(y)
+                break
+            except ValueError:
+                print(" Valor inválido, intenta de nuevo")
+    while True:
+        try:
+            x_target = float(input("\nInterpola para x = "))
+            break
+        except ValueError:
+            print(" Valor invalido")
+    return np.array(x_data), np.array(y_data), x_target
+
+
+def main():
+    print("=" * 70)
+    print("  INTERPOLACION - DIFERENCIAS DIVIDIDAS")
+    print("=" * 70)
+
+    while True:
+        x_data, y_data, x_target = get_data()
+        diferencias_divididas(x_data, y_data, x_target)
+
+        again = input("\nQuiere resolver otra tabla? (y/n): ").strip().lower()
+        if again != "y":
+            print("\nListo")
+            break
+
+
+main()
