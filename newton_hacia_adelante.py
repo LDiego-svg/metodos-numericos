@@ -17,7 +17,7 @@ def newton_adelante(x_data, y_data, x, verbose=True):
     for i in range(1, n - 1):
         if not np.isclose(x_data[i + 1] - x_data[i], h, rtol=1e-5):
             print('Los puntos no estan equiespaciados')
-            break
+            return None
 
     table = build_table(y_data)
 
@@ -86,7 +86,7 @@ def newton_adelante(x_data, y_data, x, verbose=True):
         result += contribution
         
         if verbose:
-            s_part_num = '.'.join(s_nums)
+            s_part_num = '·'.join(s_nums)
             terms_values.append(f'{diff_val:.4f}·{s_part_num}/{denom} = {contribution:.4f}')
         
     if verbose:

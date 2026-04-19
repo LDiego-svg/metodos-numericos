@@ -19,7 +19,7 @@ def newton_atras(x_data, y_data, x, verbose=True):
     for i in range(1, n - 1):
         if not np.isclose(x_data[i + 1] - x_data[i], h, rtol=1e-5):
             print("Los puntos no estan equiespaciados")
-            break
+            return None
     table = build_table(y_data)
 
     letters = [chr(65 + i) for i in range(26)]
