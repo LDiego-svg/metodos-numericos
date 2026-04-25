@@ -1,0 +1,4 @@
+simulacion_ejecucion.md
+*.exe
+.venv
+__pycache__
