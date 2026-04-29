@@ -1,0 +1,20 @@
+SOLUCION DE ECUACIONES - BISECCION
+==================================
+
+Como ejecutar:
+  Haga doble clic en "biseccion.exe" o ejecutelo desde la terminal.
+
+Que pedira el programa:
+  1. La ecuacion en terminos de x.
+     - Puede usar ^ como exponente (ej: x^2 - 2).
+     - No es necesario escribir * entre numero y variable (ej: 7x^3 + 4x^2 + 85 es valido).
+  2. El valor de a (limite inferior del intervalo).
+  3. El valor de b (limite superior del intervalo).
+     NOTA: f(a) y f(b) deben tener signos opuestos para que haya una raiz garantizada.
+
+Ejemplo de datos:
+  f(x) = x^2 - 2
+  a (limite inferior) = 1
+  b (limite superior) = 2
+
+Resultado esperado: Raiz aproximada x = 1.4142

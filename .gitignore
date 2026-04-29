@@ -1,4 +1,6 @@
 simulacion_ejecucion.md
 *.exe
+*.spec
 .venv
 __pycache__
+build/
