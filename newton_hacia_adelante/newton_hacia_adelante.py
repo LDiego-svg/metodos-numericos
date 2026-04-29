@@ -46,7 +46,7 @@ def newton_adelante(x_data, y_data, x, verbose=True):
                 if j < n - i:
                     val = table[i][j]
                     letter = label_matrix[i][j]
-                    print(f'{val:.4} --> {letter:>10}', end='')
+                    print(f'{val:.4f} --> {letter:<10}', end='')
                 else:
                     print(f'{'':<18}', end='')
             print()
@@ -110,7 +110,7 @@ def get_data():
             print(' Ingresa un número válido.')
         
     x_data, y_data = [], []
-    print(f'\nIngresa los {n} datos pares:')
+    print(f'\nIngresa los {n} datos:')
     for i in range(n):
         while True:
             try:

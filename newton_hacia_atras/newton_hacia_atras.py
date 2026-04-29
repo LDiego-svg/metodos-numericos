@@ -111,7 +111,7 @@ def get_data():
             print(" Ingresa un número válido")
 
     x_data, y_data = [], []
-    print(f"\nIngresa los {n} datos pares:")
+    print(f"\nIngresa los {n} datos:")
     for i in range(n):
         while True:
             try:
